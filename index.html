@@ -14,7 +14,6 @@
 <body>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <h2>bbbbbbbbb</h2>
 </body>
          width: 280px;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -137,6 +136,58 @@
     </div>
 
     <script src="popup.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Smooth Scroll Example</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      scroll-behavior: smooth; /* enables smooth scrolling */
+    }
 
+    section {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2em;
+    }
+
+    #top {
+      background: white;
+    }
+
+    #bottom {
+      background: lightcoral;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <section id="top">
+    <button onclick="scrollToBottom()">Scroll Down</button>
+  </section>
+
+  <section id="bottom">
+    <p>This is still in Development right now!</p>
+  </section>
+
+  <script>
+    function scrollToBottom() {
+      document.getElementById("bottom").scrollIntoView();
+    }
+  </script>
+
+</body>
+</html>
 </body>
 </html>

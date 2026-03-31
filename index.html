@@ -3,9 +3,7 @@
 <head>
   <title>Ad Blocker Control Panel</title>
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: Arial, sans-serif;
@@ -65,9 +63,7 @@
       z-index: 2;
     }
 
-    h2 {
-      text-align: center;
-    }
+    h2 { text-align: center; }
 
     .info-icon {
       position: absolute;
@@ -88,9 +84,7 @@
       height: 25px;
     }
 
-    .switch input {
-      display: none;
-    }
+    .switch input { display: none; }
 
     .slider {
       position: absolute;
@@ -128,23 +122,15 @@
       color: #aaa;
     }
 
+    /* POPUPS */
     .popup {
-      display: none;
       position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
       background: #222;
       padding: 20px;
       border-radius: 10px;
       text-align: center;
       box-shadow: 0 0 20px #00ffcc;
-      z-index: 3;
-    }
-
-    .popup.show {
-      display: block;
-      transform: translate(-50%, -50%) scale(1);
+      z-index: 999;
     }
 
     .info-section {
@@ -193,7 +179,6 @@
     <div class="toggle">
       <span>Block Ads</span>
       <label class="switch">
-        <!-- ✅ ID ADDED HERE -->
         <input type="checkbox" id="adToggle" onchange="updateStatus()">
         <span class="slider"></span>
       </label>
@@ -223,24 +208,11 @@
   </p>
 </div>
 
-<!-- EXISTING POPUPS -->
-<div class="popup" id="popupInfo">
-  <h3>How it works</h3>
-  <p>Demo interface for an ad blocker.</p>
-  <button onclick="closeInfo()">Close</button>
-</div>
-
-<div class="popup" id="popupDev">
-  <h3>Developed by</h3>
-  <p>Reid & Tane 🚀</p>
-  <button onclick="closeDev()">Close</button>
-</div>
-
-<!-- ✅ NEW RANDOM POPUP -->
-<div class="popup" id="randomPopup">
+<!-- TEMPLATE POPUP -->
+<div class="popup" id="randomPopup" style="display:none;">
   <h3>🚨 Random Ad</h3>
-  <p id="popupText">Buy something cool!</p>
-  <button onclick="closeRandom()">Close</button>
+  <p class="popupText">Buy something cool!</p>
+  <button onclick="this.parentElement.remove()">Close</button>
 </div>
 
 <script>
@@ -285,41 +257,39 @@ function startRandomPopups() {
     const adToggle = document.getElementById("adToggle");
 
     if (!adToggle.checked) {
-      const popup = document.getElementById("randomPopup");
-      const text = document.getElementById("popupText");
 
+      // CLONE popup
+      const popup = document.getElementById("randomPopup").cloneNode(true);
+      popup.style.display = "block";
+
+      // RANDOM TEXT
+      const text = popup.querySelector(".popupText");
       const randomMsg = messages[Math.floor(Math.random() * messages.length)];
       text.textContent = randomMsg;
 
-      popup.classList.add("show");
+      // RANDOM POSITION
+      const maxX = window.innerWidth - 260;
+      const maxY = window.innerHeight - 160;
 
-      setTimeout(() => {
-        popup.classList.remove("show");
-      }, 3000);
+      popup.style.left = Math.random() * maxX + "px";
+      popup.style.top = Math.random() * maxY + "px";
+
+      document.body.appendChild(popup);
     }
-  }, 5000);
+  }, 1000); // faster spawn 😈
 }
 
 function stopRandomPopups() {
   clearInterval(popupInterval);
+
+  // REMOVE ALL POPUPS
+  document.querySelectorAll("#randomPopup").forEach(p => {
+    if (p.style.display !== "none") p.remove();
+  });
 }
 
-function closeRandom() {
-  document.getElementById("randomPopup").classList.remove("show");
-}
-
-function showInfo() {
-  document.getElementById("popupInfo").classList.add("show");
-}
-function closeInfo() {
-  document.getElementById("popupInfo").classList.remove("show");
-}
-function showDev() {
-  document.getElementById("popupDev").classList.add("show");
-}
-function closeDev() {
-  document.getElementById("popupDev").classList.remove("show");
-}
+function showInfo() { alert("Demo interface for an ad blocker."); }
+function showDev() { alert("Developed by Reid & Tane 🚀"); }
 </script>
 
 </body>

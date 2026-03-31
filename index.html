@@ -8,9 +8,18 @@
       background: #111;
       color: #00ffcc;
       display: flex;
+      flex-direction: column; /* stack title + panel */
       justify-content: center;
       align-items: center;
       height: 100vh;
+    }
+
+    /* BIG TITLE */
+    .main-title {
+      font-size: 50px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      text-shadow: 0 0 15px #00ffcc;
     }
 
     .panel {
@@ -27,7 +36,6 @@
       margin-bottom: 20px;
     }
 
-    /* PAPER ICON */
     .info-icon {
       position: absolute;
       top: 10px;
@@ -90,7 +98,6 @@
       color: #aaa;
     }
 
-    /* POPUP */
     .popup {
       display: none;
       position: fixed;
@@ -117,6 +124,9 @@
   </style>
 </head>
 <body>
+
+  <!-- BIG HEADER -->
+  <div class="main-title">Ad-Block Ultimate</div>
 
   <div class="panel">
     <div class="info-icon" onclick="showInfo()">📄</div>
@@ -152,7 +162,6 @@
     </div>
   </div>
 
-  <!-- POPUP BOX -->
   <div class="popup" id="popup">
     <h3>How it works</h3>
     <p>

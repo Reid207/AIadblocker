@@ -164,7 +164,7 @@
 
     button {
       padding: 15px 25px;
-      font-size: 16px;
+      font-size: 20px;
       cursor: pointer;
     }
   </style>
@@ -174,9 +174,7 @@
   <section id="top">
     <button onclick="scrollToBottom()">Scroll to see more</button>
   </section>
-<div class="blink">🚧This is still in Development right now!🚧</div>
-  <section id="bottom">
-
+  <section id="bottom">>🚧This is still in Development right now!🚧</div>
   </section>
 
   <script>
@@ -184,22 +182,37 @@
       document.getElementById("bottom").scrollIntoView();
     }
   </script><!DOCTYPE html>
+  </style>
+    <!DOCTYPE html>
 <html>
 <head>
+  <title>Ad Blocker Message</title>
   <style>
-    .blink {
-      font-size: 50px;
-      text-align: center;
-      margin-top: 20%;
-      animation: blink-animation 1s infinite;
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #111;
+      color: #00ffcc;
+      font-family: Arial, sans-serif;
     }
 
-    @keyframes blink-animation {
-      0% { opacity: 1; }
-      50% { opacity: 0; }
-      100% { opacity: 1; }
+    .message {
+      font-size: 20px; /* smaller text */
+      font-weight: bold;
+      text-align: center;
+      border: 3px solid #00ffcc;
+      padding: 15px 25px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffcc;
     }
   </style>
+</head>
+<body>
+  <div class="message">This is a strong Ad blocker</div>
+</body>
+</html>
 </head>
 <body>
 </body>

@@ -14,7 +14,6 @@
       margin: 0;
     }
 
-    /* BACKGROUND SHIELD */
     .bg-shield {
       position: fixed;
       top: 50%;
@@ -129,7 +128,6 @@
       color: #aaa;
     }
 
-    /* POPUPS */
     .popup {
       display: none;
       position: fixed;
@@ -149,7 +147,6 @@
       transform: translate(-50%, -50%) scale(1);
     }
 
-    /* SCROLL SECTION */
     .info-section {
       height: 100vh;
       background: #000;
@@ -173,7 +170,6 @@
 <body>
 
 <img src="shield.png" class="bg-shield">
-
 <audio id="clickSound" src="click.mp3"></audio>
 
 <div class="dev-button" onclick="showDev()">Developed by Reid and Tane</div>
@@ -197,7 +193,8 @@
     <div class="toggle">
       <span>Block Ads</span>
       <label class="switch">
-        <input type="checkbox" onchange="updateStatus()">
+        <!-- ✅ ID ADDED HERE -->
+        <input type="checkbox" id="adToggle" onchange="updateStatus()">
         <span class="slider"></span>
       </label>
     </div>
@@ -216,7 +213,6 @@
   </div>
 </div>
 
-<!-- SCROLL INFO -->
 <div class="info-section">
   <h1>How It Was Made</h1>
   <p>
@@ -227,7 +223,7 @@
   </p>
 </div>
 
-<!-- POPUPS -->
+<!-- EXISTING POPUPS -->
 <div class="popup" id="popupInfo">
   <h3>How it works</h3>
   <p>Demo interface for an ad blocker.</p>
@@ -240,7 +236,24 @@
   <button onclick="closeDev()">Close</button>
 </div>
 
+<!-- ✅ NEW RANDOM POPUP -->
+<div class="popup" id="randomPopup">
+  <h3>🚨 Random Ad</h3>
+  <p id="popupText">Buy something cool!</p>
+  <button onclick="closeRandom()">Close</button>
+</div>
+
 <script>
+const messages = [
+  "🔥 50% OFF EVERYTHING!",
+  "💰 You just won $1,000!!!",
+  "🚀 This product will change your life",
+  "😎 Limited time offer!",
+  "📱 Download now before it's gone"
+];
+
+let popupInterval;
+
 function updateStatus() {
   const sound = document.getElementById("clickSound");
   sound.currentTime = 0;
@@ -255,6 +268,44 @@ function updateStatus() {
 
   document.getElementById("status").textContent =
     enabled === 0 ? "No features enabled" : enabled + " feature(s) enabled";
+
+  const adToggle = document.getElementById("adToggle");
+
+  if (!adToggle.checked) {
+    startRandomPopups();
+  } else {
+    stopRandomPopups();
+  }
+}
+
+function startRandomPopups() {
+  stopRandomPopups();
+
+  popupInterval = setInterval(() => {
+    const adToggle = document.getElementById("adToggle");
+
+    if (!adToggle.checked) {
+      const popup = document.getElementById("randomPopup");
+      const text = document.getElementById("popupText");
+
+      const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+      text.textContent = randomMsg;
+
+      popup.classList.add("show");
+
+      setTimeout(() => {
+        popup.classList.remove("show");
+      }, 3000);
+    }
+  }, 5000);
+}
+
+function stopRandomPopups() {
+  clearInterval(popupInterval);
+}
+
+function closeRandom() {
+  document.getElementById("randomPopup").classList.remove("show");
 }
 
 function showInfo() {

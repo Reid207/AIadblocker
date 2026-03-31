@@ -8,13 +8,26 @@
       background: #111;
       color: #00ffcc;
       display: flex;
-      flex-direction: column; /* stack title + panel */
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
     }
 
-    /* BIG TITLE */
+    /* TOP LEFT BUTTON */
+    .dev-button {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: #00ffcc;
+      color: #111;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+
     .main-title {
       font-size: 50px;
       font-weight: bold;
@@ -98,24 +111,42 @@
       color: #aaa;
     }
 
+    /* POPUPS */
     .popup {
       display: none;
       position: fixed;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) scale(0.8);
       background: #222;
       color: white;
-      padding: 20px;
-      border-radius: 10px;
+      padding: 25px;
+      border-radius: 12px;
       width: 260px;
       text-align: center;
-      box-shadow: 0 0 15px #00ffcc;
+      box-shadow: 0 0 20px #00ffcc;
+      transition: 0.3s;
+    }
+
+    .popup.show {
+      display: block;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .popup h3 {
+      margin-bottom: 10px;
+    }
+
+    .popup .names {
+      font-size: 20px;
+      font-weight: bold;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc;
     }
 
     .popup button {
-      margin-top: 10px;
-      padding: 5px 10px;
+      margin-top: 15px;
+      padding: 6px 12px;
       border: none;
       background: #00ffcc;
       cursor: pointer;
@@ -125,7 +156,9 @@
 </head>
 <body>
 
-  <!-- BIG HEADER -->
+  <!-- TOP LEFT BUTTON -->
+  <div class="dev-button" onclick="showDev()">Developed by Reid and Tane</div>
+
   <div class="main-title">Ad-Block Ultimate</div>
 
   <div class="panel">
@@ -162,7 +195,8 @@
     </div>
   </div>
 
-  <div class="popup" id="popup">
+  <!-- INFO POPUP -->
+  <div class="popup" id="popupInfo">
     <h3>How it works</h3>
     <p>
       This is a demo ad blocker interface.<br><br>
@@ -170,6 +204,14 @@
       trackers, and scripts from loading on websites.
     </p>
     <button onclick="closeInfo()">Close</button>
+  </div>
+
+  <!-- DEV POPUP -->
+  <div class="popup" id="popupDev">
+    <h3>Developed by</h3>
+    <div class="names">Reid & Tane</div>
+    <p style="margin-top:10px;">Creators of Ad-Block Ultimate 🚀</p>
+    <button onclick="closeDev()">Close</button>
   </div>
 
   <script>
@@ -191,11 +233,19 @@
     }
 
     function showInfo() {
-      document.getElementById("popup").style.display = "block";
+      document.getElementById("popupInfo").classList.add("show");
     }
 
     function closeInfo() {
-      document.getElementById("popup").style.display = "none";
+      document.getElementById("popupInfo").classList.remove("show");
+    }
+
+    function showDev() {
+      document.getElementById("popupDev").classList.add("show");
+    }
+
+    function closeDev() {
+      document.getElementById("popupDev").classList.remove("show");
     }
   </script>
 

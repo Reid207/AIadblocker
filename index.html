@@ -22,6 +22,13 @@
       background: radial-gradient(circle at center, #200, #000);
     }
 
+    /* RED MODE OVERRIDES */
+    body.redmode .main-title { text-shadow: 0 0 25px #ff3b3b; }
+    body.redmode .panel { box-shadow: 0 0 30px #ff3b3b; }
+    body.redmode .stat-box { box-shadow: 0 0 10px #ff3b3b; }
+    body.redmode .redbtn { box-shadow: 0 0 10px #ff3b3b; color:#ff3b3b; }
+    body.redmode .settings { color:#ff3b3b; }
+
     .container {
       height: 100vh;
       display: flex;
@@ -54,12 +61,12 @@
     }
 
     .toggle {
-      display: flex;
-      justify-content: space-between;
-      margin: 15px 0;
+      display:flex;
+      justify-content:space-between;
+      margin:15px 0;
     }
 
-    .switch { position: relative; width:50px; height:25px; }
+    .switch { position:relative; width:50px; height:25px; }
     .switch input { display:none; }
 
     .slider {
@@ -70,12 +77,9 @@
     .slider:before {
       content:"";
       position:absolute;
-      height:20px;
-      width:20px;
-      left:3px;
-      top:2.5px;
-      background:white;
-      border-radius:50%;
+      height:20px; width:20px;
+      left:3px; top:2.5px;
+      background:white; border-radius:50%;
       transition:0.3s;
     }
 
@@ -88,17 +92,13 @@
       transform: translateX(25px);
     }
 
-    .status {
-      text-align:center;
-      margin-top:10px;
-      color:#aaa;
-    }
+    .status { text-align:center; margin-top:10px; color:#aaa; }
 
     .stats {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      margin-top:20px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
     }
 
     .stat-box {
@@ -109,13 +109,10 @@
       box-shadow:0 0 10px #00ffcc;
     }
 
-    .stat-number {
-      font-size:20px;
-      font-weight:bold;
-    }
+    .stat-number { font-size:20px; font-weight:bold; }
 
     .popup {
-      position: fixed;
+      position:fixed;
       background:#222;
       padding:15px;
       border-radius:10px;
@@ -124,7 +121,7 @@
       cursor:pointer;
     }
 
-    .redbtn{
+    .redbtn {
       position:fixed;
       top:10px;
       right:10px;
@@ -138,7 +135,7 @@
       box-shadow:0 0 10px #00ffcc;
     }
 
-    .settings{
+    .settings {
       position:fixed;
       top:10px;
       right:120px;
@@ -147,10 +144,9 @@
       cursor:pointer;
     }
 
-    .modal{
+    .modal {
       position:fixed;
-      top:50%;
-      left:50%;
+      top:50%; left:50%;
       transform:translate(-50%,-50%);
       background:#111;
       padding:25px;
@@ -161,7 +157,7 @@
       z-index:9999;
     }
 
-    .close{
+    .close {
       margin-top:10px;
       padding:8px;
       background:#00ffcc;
@@ -182,8 +178,7 @@
   <h2>How this was made</h2>
   <p>
     This project was built using HTML, CSS and JavaScript. It simulates
-    an ad blocker dashboard with animated popups, counters, and UI effects
-    like Red Mode and VIP Mode. Popups are dynamically generated using JS.
+    an ad blocker dashboard with animated popups and UI effects.
   </p>
   <button class="close" onclick="closeSettings()">Close</button>
 </div>
@@ -192,7 +187,6 @@
   <div class="main-title">Ad-Block Ultimate ⚡</div>
 
   <div class="panel">
-    <h2>Control Panel</h2>
 
     <div class="toggle">
       <span>🕶️ VIP Mode</span>
@@ -222,12 +216,10 @@
 
     <div class="stats">
       <div class="stat-box">
-        Ads Blocked
-        <div class="stat-number" id="adsBlocked">0</div>
+        Ads Blocked <div class="stat-number" id="adsBlocked">0</div>
       </div>
       <div class="stat-box">
-        Trackers Blocked
-        <div class="stat-number" id="trackersBlocked">0</div>
+        Trackers Blocked <div class="stat-number" id="trackersBlocked">0</div>
       </div>
     </div>
   </div>
@@ -236,64 +228,58 @@
 <div class="footer">🚀 Created by Reid O'Brien</div>
 
 <script>
-const links = [
-  "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-  "https://www.youtube.com",
-  "https://www.wikipedia.org",
-  "https://www.google.com"
+const links=[
+"https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+"https://www.youtube.com",
+"https://www.wikipedia.org",
+"https://www.google.com"
 ];
 
-let adsBlocked = 0;
-let trackersBlocked = 0;
-let prevAd = false;
-let prevTracker = false;
-
-function openSettings(){
-  document.getElementById("modal").style.display="block";
-}
-
-function closeSettings(){
-  document.getElementById("modal").style.display="none";
-}
-
-function toggleRed(){
-  document.body.classList.toggle("redmode");
-}
+let adsBlocked=0;
+let trackersBlocked=0;
+let prevAd=false;
+let prevTracker=false;
+let redMode=false;
 
 function toggleVIP(){
   document.body.classList.toggle("vip");
-  updateStatus();
+}
+
+function openSettings(){ document.getElementById("modal").style.display="block"; }
+function closeSettings(){ document.getElementById("modal").style.display="none"; }
+
+function toggleRed(){
+  redMode=!redMode;
+  document.body.classList.toggle("redmode");
 }
 
 function explodePopups(){
-  const popups = document.querySelectorAll(".popup");
-  popups.forEach(p => p.remove());
+  const popups=document.querySelectorAll(".popup");
+  popups.forEach(p=>p.remove());
   return popups.length;
 }
 
 function updateStatus(){
-  const ad = document.getElementById("adToggle").checked;
-  const tracker = document.getElementById("trackerToggle").checked;
+  const ad=document.getElementById("adToggle").checked;
+  const tracker=document.getElementById("trackerToggle").checked;
 
   if(ad && !prevAd){
-    adsBlocked += explodePopups();
-    document.getElementById("adsBlocked").textContent = adsBlocked;
+    adsBlocked+=explodePopups();
+    document.getElementById("adsBlocked").textContent=adsBlocked;
   }
 
   if(tracker && !prevTracker){
-    trackersBlocked += explodePopups();
-    document.getElementById("trackersBlocked").textContent = trackersBlocked;
+    trackersBlocked+=explodePopups();
+    document.getElementById("trackersBlocked").textContent=trackersBlocked;
   }
 
-  prevAd = ad;
-  prevTracker = tracker;
+  prevAd=ad;
+  prevTracker=tracker;
 
-  const toggles = document.querySelectorAll("input[type=checkbox]");
-  let enabled = 0;
-  toggles.forEach(t => { if(t.checked) enabled++; });
+  let enabled=[ad,tracker,document.getElementById("vipToggle").checked].filter(Boolean).length;
 
-  document.getElementById("status").textContent =
-    enabled === 0 ? "No features enabled" : enabled + " feature(s) enabled";
+  document.getElementById("status").textContent=
+    enabled===0?"No features enabled":enabled+" feature(s) enabled";
 
   if(!ad) startPopups();
   else stopPopups();
@@ -301,49 +287,50 @@ function updateStatus(){
 
 let interval;
 function createPopup(){
-  const p = document.createElement("div");
-  p.className = "popup";
-  p.textContent = "🚨 Click Me";
+  const p=document.createElement("div");
+  p.className="popup";
 
-  p.onclick = () => {
-    const link = links[Math.floor(Math.random() * links.length)];
-    window.open(link, "_blank");
-  };
+  const msgs=["🚨 Free Robux for all click here","🔥 Bestest offer EVER 50% off!","💰 ALWAYS win click now!","⚡ click here to fix your P.C!","📦 Free gift click hair to redeem!","🎯 Lucky WINNER!"];
+  p.textContent=msgs[Math.floor(Math.random()*msgs.length)];
 
-  p.style.left = Math.random() * window.innerWidth + "px";
-  p.style.top = Math.random() * window.innerHeight + "px";
+  p.onclick=()=>window.open(links[Math.floor(Math.random()*links.length)],"_blank");
+
+  p.style.left=Math.random()*window.innerWidth+"px";
+  p.style.top=Math.random()*window.innerHeight+"px";
 
   document.body.appendChild(p);
 }
 
 function startPopups(){
   stopPopups();
-  interval = setInterval(() => {
+  // FASTER SPAWN RATE 🔥
+  interval=setInterval(()=>{
     if(!document.getElementById("adToggle").checked){
       createPopup();
     }
-  }, 800);
+  },300);
 }
 
 function stopPopups(){
   clearInterval(interval);
-  document.querySelectorAll(".popup").forEach(p => p.remove());
+  document.querySelectorAll(".popup").forEach(p=>p.remove());
 }
 
-const c = document.getElementById("bg");
-const x = c.getContext("2d");
-c.width = innerWidth;
-c.height = innerHeight;
-let pts = [];
+const c=document.getElementById("bg");
+const x=c.getContext("2d");
+c.width=innerWidth;
+c.height=innerHeight;
+let pts=[];
 for(let i=0;i<60;i++) pts.push({x:Math.random()*c.width,y:Math.random()*c.height});
 
 function anim(){
+  const color=document.body.classList.contains("redmode")?"#ff3b3b":"#00ffcc";
   x.clearRect(0,0,c.width,c.height);
-  pts.forEach(p => {
-    x.fillStyle="#00ffcc";
+  pts.forEach(p=>{
+    x.fillStyle=color;
     x.fillRect(p.x,p.y,2,2);
-    p.x += Math.random()-0.5;
-    p.y += Math.random()-0.5;
+    p.x+=Math.random()-0.5;
+    p.y+=Math.random()-0.5;
   });
   requestAnimationFrame(anim);
 }
@@ -352,3 +339,4 @@ anim();
 
 </body>
 </html>
+
